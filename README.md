@@ -3,7 +3,7 @@ Node event calendar for assignment task.
 1. Clone
 
 ```
-git clone *****
+git clone https://github.com/mhshajib/event_calendar.git
 ```
 
 2.Go to project directory

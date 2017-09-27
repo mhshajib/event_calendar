@@ -1,0 +1,59 @@
+<nav class="navbar navbar-default">
+  <div class="container">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="javascript:">{{ calendar.filteredMonthName}}, {{ calendar.filteredYear}}</a>
+    </div>
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+          <div class="btn-group" role="group" style="margin-top: 8px;">
+            <button type="button" class="btn btn-default">Prev</button>
+            <button type="button" class="btn btn-default">Next</button>
+          </div>
+        </li>
+      </ul>
+    </div><!-- /.navbar-collapse -->
+  </div><!-- /.container-fluid -->
+</nav>
+<div class="container">
+  <div ng-controller="calendar">
+    <div id="calendar-wrap">
+        <div id="calendar">
+            <ul class="weekdays">
+                <li>Sunday</li>
+                <li>Monday</li>
+                <li>Tuesday</li>
+                <li>Wednesday</li>
+                <li>Thursday</li>
+                <li>Friday</li>
+                <li>Saturday</li>
+            </ul>
+            <!-- Days from previous month -->
+            <ul class="days" ng-repeat="week in calendar.weeks">
+              <li class="day" ng-repeat="day in week.days">
+                <div class="date">{{ day.date }}</div>
+                <button type="button" name="button" class="btn btn-xs">+</button>
+                <div class="event">
+                    <div class="event-title">
+                        Event 1
+                        <div class="btn-group pull-right" role="group">
+                          <button type="button" class="btn btn-xs btn-default">/</button>
+                          <button type="button" class="btn btn-xs btn-default">-</button>
+                        </div>
+                    </div>
+                </div>
+              </td>
+            </ul>
+        </div><!-- /. calendar -->
+    </div><!-- /. wrap -->
+  </div>
+</div>

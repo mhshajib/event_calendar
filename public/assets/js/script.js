@@ -64,7 +64,8 @@ app.controller('calendar', function ($scope, $rootScope, $http, $location, $rout
   };
 
   // Call for add event
-  $scope.addEvent = function(year, month, date){
-    console.log(year+'-'+month+'-'+date);
+  $scope.addEvent = function(year, month, date, weeksIndex, dayIndex){
+    console.log(year+'-'+month+'-'+date+' : '+weeksIndex+' : '+dayIndexgit status
+    );
   };
 });

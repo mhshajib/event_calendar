@@ -35,15 +35,15 @@
               <li class="day" ng-repeat="(dayIndex, day) in week.days" ng-class="(day.month-1 != commonData.filteredMonth) ? 'other-month' : '' ">
                 <div class="date">{{ day.date }}</div>
                   <button type="button" data-toggle="modal" data-target=".eventModal" ng-show="day.month-1 == commonData.filteredMonth" name="button" class="btn btn-default btn-sm" title="Add Event" ng-click="addEvent(day.year, day.month, day.date, weekIndex, dayIndex)"><i class="ion ion-plus-round"></i></button>
-                <!-- <div class="event">
-                    <div class="event-title">
-                        Event 1
-                        <div class="btn-group pull-right" role="group">
-                          <button type="button" class="btn btn-xs btn-default">/</button>
-                          <button type="button" class="btn btn-xs btn-default">-</button>
-                        </div>
-                    </div>
-                </div> -->
+                  <div class="event" ng-repeat="event in day.events">
+                      <div class="event-title">
+                          {{ event.title }}
+                          <div class="btn-group" role="group">
+                            <button type="button" class="btn btn-sm btn-default">E</button>
+                            <button type="button" class="btn btn-sm btn-default">D</button>
+                          </div>
+                      </div>
+                  </div>
               </td>
             </ul>
         </div><!-- /. calendar -->

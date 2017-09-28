@@ -34,7 +34,7 @@ app.controller('calendar', function ($scope, $rootScope, $http, $location, $rout
         week:week,
         days:Array(7).fill(0).map(function(n, i) {
           var day =  moment([year, month]).week(week).startOf('week').clone().add(n + i, 'day');
-          return {"date": day.format("D"), "month": day.format("M"), "year": day.format("Y"), "day": day.format("dddd")};
+          return {"date": day.format("D"), "month": day.format("M"), "year": day.format("Y"), "day": day.format("dddd"), "events": []};
         })
       })
     }
@@ -82,7 +82,7 @@ app.controller('calendar', function ($scope, $rootScope, $http, $location, $rout
     $scope.triggeredCell.description = $scope.event.description;
 
     $http.post($rootScope.baseUrl + '/events/create', $scope.triggeredCell).then(function(response) {
-        alert(response.data.message);
+      $scope.weeks[response.data.data.weeksIndex].days[response.data.data.dayIndex].events.push(response.data.data);
     });
   }
 });

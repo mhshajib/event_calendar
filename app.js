@@ -4,27 +4,34 @@ var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
 mongoose.connect('mongodb://localhost/event_calendar', { useMongoClient: true});
 
-//Init app
+//Initializing app
 var app = express();
 
 //Body parser middleware
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended:false}));
 
-//Set statuc folder
+//Set static folder
 app.use(express.static(path.join(__dirname, 'public')));
 
+//Creating http server
 var server = require('http').createServer(app);
+
+//Initializing socket
 // var io = require('socket.io').listen(server);
 
 app.get('/', function(req, res){
 	res.sendFile(__dirname + '/index.html');
-	// res.json({"name": "Sajib", "age": "26"});
 });
+
+
+// Calling event routes when request first param is event
+app.use('/events', require('./routes/event'));
 
 //Set Port
 app.set('port',3300);
 
+//Checking mongodb connection
 mongoose.connection.on('error', function(err) {
     console.log('Mongodb is not running.');
     process.exit();

@@ -1,3 +1,6 @@
+button {
+  cursor: pointer;
+}
 #calendar {
   width: 100%;
 }

@@ -1,7 +1,12 @@
-var app = angular.module('event_calendar', ['ngRoute', 'angularMoment']).run(function($rootScope){
+// Initializing Angular App
+var app = angular.module('event_calendar', ['ngRoute', 'angularMoment']).run(function($rootScope, $location){
+  // Setting current year and month at rootscope for global scope variable
   $rootScope.currentYear = moment().format("Y");
   $rootScope.currentMonth = moment().format("M")-1;
+  $rootScope.baseUrl = $location.protocol() + '://'+ $location.host() +':'+  $location.port();
 });
+
+//Route
 app.config(function($routeProvider) {
     $routeProvider
         .when('/:year?/:month?', {
@@ -10,9 +15,12 @@ app.config(function($routeProvider) {
         });
 });
 
+
+// Calendar Controller
 app.controller('calendar', function ($scope, $rootScope, $http, $location, $routeParams) {
   $scope.generateCalendar = function(year, month){
     $scope.commonData = {};
+    $scope.event = {title: '', description: ''};
     var weeks = [];
     var startWeek = moment([year, month]).startOf('month').week();
     var endWeek = moment([year, month]).endOf('month').week();
@@ -65,7 +73,16 @@ app.controller('calendar', function ($scope, $rootScope, $http, $location, $rout
 
   // Call for add event
   $scope.addEvent = function(year, month, date, weeksIndex, dayIndex){
-    console.log(year+'-'+month+'-'+date+' : '+weeksIndex+' : '+dayIndexgit status
-    );
+    $scope.triggeredCell = {year: year, month: month, date: date, weeksIndex: weeksIndex, dayIndex: dayIndex};
   };
+
+  // Call for save event
+  $scope.saveEvent = function(){
+    $scope.triggeredCell.title = $scope.event.title;
+    $scope.triggeredCell.description = $scope.event.description;
+
+    $http.post($rootScope.baseUrl + '/events/create', $scope.triggeredCell).then(function(response) {
+        alert(response.data.message);
+    });
+  }
 });

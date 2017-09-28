@@ -35,6 +35,7 @@ app.controller('calendar', function ($scope, $rootScope, $http, $location, $rout
     $scope.commonData.filteredMonth = month;
     $scope.commonData.filteredMonthName = moment([year, month]).format("MMMM");
     $scope.weeks = weeks;
+    console.log(weeks);
   };
 
   // First time call for current month's calendar
@@ -51,7 +52,7 @@ app.controller('calendar', function ($scope, $rootScope, $http, $location, $rout
     $rootScope.currentMonth = newDate.format("M")-1;
 
     $location.path('/'+$rootScope.currentYear+'/'+$rootScope.currentMonth).replace();
-  }
+  };
 
   // Call for previous month's calendar
   $scope.previousMonth = function(){
@@ -60,5 +61,10 @@ app.controller('calendar', function ($scope, $rootScope, $http, $location, $rout
     $rootScope.currentMonth = newDate.format("M")-1;
 
     $location.path('/'+$rootScope.currentYear+'/'+$rootScope.currentMonth).replace();
-  }
+  };
+
+  // Call for add event
+  $scope.addEvent = function(year, month, date){
+    console.log(year+'-'+month+'-'+date);
+  };
 });

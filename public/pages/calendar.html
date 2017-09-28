@@ -8,7 +8,7 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="javascript:">{{ commonData.filteredMonthName}}, {{ commonData.filteredYear}}</a>
+      <a class="navbar-brand" href="javascript:"><i class="ion ion-calendar"></i>&nbsp;{{ commonData.filteredMonthName}}, {{ commonData.filteredYear}}</a>
     </div>
 
     <!-- Collect the nav links, forms, and other content for toggling -->
@@ -16,8 +16,8 @@
       <ul class="nav navbar-nav navbar-right">
         <li>
           <div class="btn-group" role="group" style="margin-top: 8px;">
-            <button type="button" class="btn btn-default" ng-click="previousMonth()">Prev</button>
-            <button type="button" class="btn btn-default" ng-click="nextMonth()">Next</button>
+            <button type="button" class="btn btn-default" ng-click="previousMonth()"><i class="ion ion-chevron-left"></i>&nbsp; Prev</button>
+            <button type="button" class="btn btn-default" ng-click="nextMonth()">Next &nbsp;<i class="ion ion-chevron-right"></i></button>
           </div>
         </li>
       </ul>
@@ -39,9 +39,9 @@
             </ul>
             <!-- Days from previous month -->
             <ul class="days" ng-repeat="week in weeks">
-              <li class="day" ng-repeat="day in week.days">
+              <li class="day" ng-repeat="day in week.days" ng-class="(day.month-1 != commonData.filteredMonth) ? 'other-month' : '' ">
                 <div class="date">{{ day.date }}</div>
-                <!-- <button type="button" name="button" class="btn btn-xs">+</button> -->
+                  <button type="button" ng-show="day.month-1 == commonData.filteredMonth" name="button" class="btn btn-default btn-xs" title="Add Event" ng-click="addEvent(day.year, day.month, day.date)"><i class="ion ion-plus-round"></i></button>
                 <!-- <div class="event">
                     <div class="event-title">
                         Event 1

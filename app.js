@@ -2,7 +2,7 @@ var express = require('express');
 var path = require('path');
 var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
-mongoose.connect('mongodb://localhost/passport', { useMongoClient: true});
+mongoose.connect('mongodb://localhost/event_calendar', { useMongoClient: true});
 
 //Init app
 var app = express();

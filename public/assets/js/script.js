@@ -1,7 +1,7 @@
 var app = angular.module('event_calendar', ['ngRoute', 'angularMoment']).run(function($rootScope){
   $rootScope.currentYear = moment().format("Y");
   $rootScope.currentMonth = moment().format("M")-1;
-});;
+});
 app.config(function($routeProvider) {
     $routeProvider
         .when('/:year?/:month?', {
@@ -12,10 +12,15 @@ app.config(function($routeProvider) {
 
 app.controller('calendar', function ($scope, $rootScope, $http, $location, $routeParams) {
   $scope.generateCalendar = function(year, month){
-    const startWeek = moment([year, month]).startOf('month').week();
-    const endWeek = moment([year, month]).endOf('month').week();
     $scope.commonData = {};
     var weeks = [];
+    var startWeek = moment([year, month]).startOf('month').week();
+    var endWeek = moment([year, month]).endOf('month').week();
+
+    if (month == 11){
+      var endWeek = moment([year, month]).subtract((parseInt(year)+1) - moment().format("Y"), 'Y').endOf('month').week();
+    }
+
     for(var week = startWeek; week<=endWeek;week++){
       weeks.push({
         week:week,
@@ -25,6 +30,7 @@ app.controller('calendar', function ($scope, $rootScope, $http, $location, $rout
         })
       })
     }
+
     $scope.commonData.filteredYear = year;
     $scope.commonData.filteredMonth = month;
     $scope.commonData.filteredMonthName = moment([year, month]).format("MMMM");

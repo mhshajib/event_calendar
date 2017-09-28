@@ -1,22 +1,21 @@
-var app = angular.module('event_calendar', ['ngRoute', 'angularMoment']);
+var app = angular.module('event_calendar', ['ngRoute', 'angularMoment']).run(function($rootScope){
+  $rootScope.currentYear = moment().format("Y");
+  $rootScope.currentMonth = moment().format("M")-1;
+});;
 app.config(function($routeProvider) {
     $routeProvider
-        .when('/', {
+        .when('/:year?/:month?', {
             templateUrl : 'pages/calendar.html',
             controller  : 'calendar'
         });
 });
 
-app.controller('calendar', function ($scope, $http) {
-  $scope.currentYear = moment().format("Y");
-  $scope.currentMonth = moment().format("M")-1;
-
+app.controller('calendar', function ($scope, $rootScope, $http, $location, $routeParams) {
   $scope.generateCalendar = function(year, month){
     const startWeek = moment([year, month]).startOf('month').week();
     const endWeek = moment([year, month]).endOf('month').week();
-
-    let calendar = [];
-    let weeks = [];
+    $scope.commonData = {};
+    var weeks = [];
     for(var week = startWeek; week<=endWeek;week++){
       weeks.push({
         week:week,
@@ -26,12 +25,34 @@ app.controller('calendar', function ($scope, $http) {
         })
       })
     }
-    calendar.filteredYear = year;
-    calendar.filteredMonth = month;
-    calendar.filteredMonthName = moment([year, month]).format("MMMM");
-    calendar.weeks = weeks;
-    $scope.calendar = calendar;
-    //console.log(calendar);
-	};
-  $scope.generateCalendar($scope.currentYear, $scope.currentMonth);
+    $scope.commonData.filteredYear = year;
+    $scope.commonData.filteredMonth = month;
+    $scope.commonData.filteredMonthName = moment([year, month]).format("MMMM");
+    $scope.weeks = weeks;
+  };
+
+  // First time call for current month's calendar
+  if($routeParams.year && $routeParams.month){
+    $rootScope.currentYear = $routeParams.year;
+    $rootScope.currentMonth = $routeParams.month;
+  }
+  $scope.generateCalendar($rootScope.currentYear, $rootScope.currentMonth);
+
+  // Call for next month's calendar
+  $scope.nextMonth = function(){
+    var newDate = moment([$scope.currentYear, $scope.currentMonth]).add(1, 'M');
+    $rootScope.currentYear = newDate.format("Y");
+    $rootScope.currentMonth = newDate.format("M")-1;
+
+    $location.path('/'+$rootScope.currentYear+'/'+$rootScope.currentMonth).replace();
+  }
+
+  // Call for previous month's calendar
+  $scope.previousMonth = function(){
+    var newDate = moment([$scope.currentYear, $scope.currentMonth]).subtract(1, 'M');
+    $rootScope.currentYear = newDate.format("Y");
+    $rootScope.currentMonth = newDate.format("M")-1;
+
+    $location.path('/'+$rootScope.currentYear+'/'+$rootScope.currentMonth).replace();
+  }
 });

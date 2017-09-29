@@ -50,8 +50,8 @@ app.post('/events/create', function (req, res) {
         if(err){
             res.json({status: 4000, message: "Failed to create event"});
         }else{
-            io.sockets.emit('create_event', req.body);
-            res.json({status: 2001, message: "Event created successfully", data: req.body});
+            io.sockets.emit('create_event', event);
+            res.json({status: 2001, message: "Event created successfully", data: event});
         }
     });
 });

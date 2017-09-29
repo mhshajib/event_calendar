@@ -3,6 +3,7 @@ var path = require('path');
 var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
 mongoose.connect('mongodb://localhost/event_calendar', { useMongoClient: true});
+var EventModel = require('./models/event');
 
 //Initializing app
 var app = express();
@@ -16,17 +17,66 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 //Creating http server
 var server = require('http').createServer(app);
-
 //Initializing socket
-// var io = require('socket.io').listen(server);
+var io = require('socket.io').listen(server);
 
+//Routes
 app.get('/', function(req, res){
 	res.sendFile(__dirname + '/index.html');
 });
-
-
 // Calling event routes when request first param is event
-app.use('/events', require('./routes/event'));
+app.get('/events', function (req, res) {
+    EventModel.fetchEvents({year: req.query.year, month: req.query.month},function (err, events) {
+        if(err){
+            res.json({status: 4000, errors: errors});
+        }else{
+            res.json({status: 2000, data: events});
+        }
+    });
+});
+//Create Event
+app.post('/events/create', function (req, res) {
+    var newEvent = new EventModel({
+        year: req.body.year,
+        month: req.body.month,
+        date: req.body.date,
+        weeksIndex: req.body.weeksIndex,
+        dayIndex: req.body.dayIndex,
+        title: req.body.title,
+        description: req.body.description
+    });
+    EventModel.createEvent(newEvent, function (err, event) {
+        if(err){
+            res.json({status: 4000, message: "Failed to create event"});
+        }else{
+            io.sockets.emit('create_event', event);
+            res.json({status: 2001, message: "Event created successfully", data: event});
+        }
+    });
+});
+
+//Edit Event
+app.put('/events/:id/edit', function (req, res) {
+    EventModel.editEvent({id: req.params.id, title: req.body.title, description: req.body.description}, function (err, event) {
+        if(err){
+            res.json({status: 4000, message: "Failed to update event"});
+        }else{
+            res.json({status: 2002, message: "Event updated successfully", data: event});
+        }
+    });
+});
+
+//Delete Event
+app.delete('/events/:id/delete', function (req, res) {
+    EventModel.deleteEvent(req.params.id, function (err, event) {
+        if(err){
+            res.json({status: 4000, message: "Failed to delete event"});
+        }else{
+            res.json({status: 2003, message: "Event deleted successfully"});
+        }
+    });
+});
+
 
 //Set Port
 app.set('port',3300);

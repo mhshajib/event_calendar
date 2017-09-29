@@ -6,6 +6,35 @@ var app = angular.module('event_calendar', ['ngRoute', 'angularMoment']).run(fun
   $rootScope.baseUrl = $location.protocol() + '://'+ $location.host() +':'+  $location.port();
 });
 
+//Factory for socket client service
+app.factory('socket', ['$rootScope', function ($rootScope) {
+  var socket = io.connect();
+  return {
+    on: function (eventName, callback) {
+      function wrapper() {
+        var args = arguments;
+        $rootScope.$apply(function () {
+          callback.apply(socket, args);
+        });
+      }
+      socket.on(eventName, wrapper);
+      return function () {
+        socket.removeListener(eventName, wrapper);
+      };
+    },
+    emit: function (eventName, data, callback) {
+      socket.emit(eventName, data, function () {
+        var args = arguments;
+        $rootScope.$apply(function () {
+          if(callback) {
+            callback.apply(socket, args);
+          }
+        });
+      });
+    }
+  };
+}]);
+
 //Route
 app.config(function($routeProvider) {
     $routeProvider
@@ -17,7 +46,7 @@ app.config(function($routeProvider) {
 
 
 // Calendar Controller
-app.controller('calendar', function ($scope, $rootScope, $http, $location, $routeParams) {
+app.controller('calendar', function ($scope, socket, $rootScope, $http, $location, $routeParams) {
   $scope.generateCalendar = function(year, month){
     $scope.commonData = {};
     $scope.event = {title: '', description: ''};
@@ -43,7 +72,6 @@ app.controller('calendar', function ($scope, $rootScope, $http, $location, $rout
     $scope.commonData.filteredMonth = month;
     $scope.commonData.filteredMonthName = moment([year, month]).format("MMMM");
     $scope.weeks = weeks;
-    console.log(weeks);
   };
 
   // First time call for current month's calendar
@@ -142,4 +170,9 @@ app.controller('calendar', function ($scope, $rootScope, $http, $location, $rout
       });
     }
   };
+
+  //Initializing socket
+   socket.on('create_event', function (data) {
+     $scope.weeks[data.weeksIndex].days[data.dayIndex].events.push(data);
+   });
 });

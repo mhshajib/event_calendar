@@ -25,20 +25,31 @@ router.post('/create', function (req, res) {
     });
     Event.createEvent(newEvent, function (err, event) {
         if(err){
-            res.json({status: 4000, errors: errors});
+            res.json({status: 4000, message: "Failed to create event"});
         }else{
-            res.json({status: 2001, message: "Event Saved Successfully", data: event});
+            res.json({status: 2001, message: "Event created successfully", data: event});
         }
     });
 });
 
-//Create Event
+//Edit Event
 router.put('/:id/edit', function (req, res) {
     Event.editEvent({id: req.params.id, title: req.body.title, description: req.body.description}, function (err, event) {
         if(err){
-            res.json({status: 4000, errors: errors});
+            res.json({status: 4000, message: "Failed to update event"});
         }else{
-            res.json({status: 2002, message: "Event Updated Successfully", data: event});
+            res.json({status: 2002, message: "Event updated successfully", data: event});
+        }
+    });
+});
+
+//Delete Event
+router.delete('/:id/delete', function (req, res) {
+    Event.deleteEvent(req.params.id, function (err, event) {
+        if(err){
+            res.json({status: 4000, message: "Failed to delete event"});
+        }else{
+            res.json({status: 2003, message: "Event deleted successfully"});
         }
     });
 });

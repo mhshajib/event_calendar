@@ -122,4 +122,13 @@ app.controller('calendar', function ($scope, $rootScope, $http, $location, $rout
       }
     });
   };
+
+  // Call for delete event
+  $scope.deleteEvent = function(weeksIndex, dayIndex, eventIndex, event_id){
+    $http.delete($rootScope.baseUrl + '/events/'+event_id+'/delete').then(function(response) {
+      if(response.data.status == 2003){
+        $scope.weeks[weeksIndex].days[dayIndex].events.splice(eventIndex, 1);
+      }
+    });
+  };
 });

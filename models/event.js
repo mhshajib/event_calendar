@@ -31,3 +31,10 @@ module.exports.editEvent = function(eventData, callback){
         event.save(callback);
     });
 };
+
+//Delete Event
+module.exports.deleteEvent = function(eventId, callback){
+    Event.findById(eventId, function (err, event) {
+        event.remove(callback);
+    });
+};

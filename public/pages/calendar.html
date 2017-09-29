@@ -42,7 +42,7 @@
                           <span class="float-right">
                                 <i class="ion ion-eye" title="View Event" data-toggle="modal" data-target="#viewEventModal" ng-click="viewEvent(event.title, event.description)"></i>
                                 <i class="ion ion-edit" title="Edit Event" data-toggle="modal" data-target="#editEventModal" ng-click="editEvent(day.year, day.month, day.date, weekIndex, dayIndex, eventIndex, event._id, event.title, event.description)"></i>
-                                <i class="ion ion-ios-trash" title="Delete Event"></i>
+                                <i class="ion ion-ios-trash" title="Delete Event" ng-click="deleteEvent(weekIndex, dayIndex, eventIndex, event._id)"></i>
                           </span>
                           {{ event.title }}
                       </div>

@@ -4,7 +4,7 @@
   "description": "Demo Event Calendar For Jeeon",
   "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "mocha",
     "start": "nodejs app"
   },
   "author": "Mehedi Hasan Sajib",
@@ -12,6 +12,7 @@
   "dependencies": {
     "body-parser": "^1.18.2",
     "express": "^4.15.5",
+    "mocha": "^3.5.3",
     "mongoose": "^4.11.13",
     "socket.io": "^2.0.3"
   }

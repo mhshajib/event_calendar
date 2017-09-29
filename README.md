@@ -21,7 +21,7 @@ npm install
 4. Run
 
 ```
-nodejs app
+npm start
 ```
 
 Go to http://localhost:3300 the app will be there

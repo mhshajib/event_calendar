@@ -80,6 +80,7 @@ app.controller('calendar', function ($scope, $rootScope, $http, $location, $rout
 
   // Call for add event
   $scope.addEvent = function(year, month, date, weeksIndex, dayIndex){
+    $scope.event = {title: '', description: ''};
     $scope.triggeredCell = {year: year, month: month, date: date, weeksIndex: weeksIndex, dayIndex: dayIndex};
   };
 
@@ -92,8 +93,33 @@ app.controller('calendar', function ($scope, $rootScope, $http, $location, $rout
       if(response.data.status == 2001){
         $scope.weeks[response.data.data.weeksIndex].days[response.data.data.dayIndex].events.push(response.data.data);
         $scope.event = {title: '', description: ''};
-        jQuery('#eventModal').modal('hide');
+        jQuery('#createEventModal').modal('hide');
       }
     });
-  }
+  };
+
+  // Call for view event
+  $scope.viewEvent = function(title, description){
+    $scope.event = {title: title, description: description};
+  };
+
+  // Call for edit event
+  $scope.editEvent = function(year, month, date, weeksIndex, dayIndex, eventIndex, event_id, title, description){
+    $scope.event = {title: title, description: description, _id: event_id};
+    $scope.triggeredCell = {year: year, month: month, date: date, weeksIndex: weeksIndex, dayIndex: dayIndex, eventIndex: eventIndex};
+  };
+
+  // Call for update event
+  $scope.updateEvent = function(){
+    $scope.triggeredCell.title = $scope.event.title;
+    $scope.triggeredCell.description = $scope.event.description;
+    $http.put($rootScope.baseUrl + '/events/'+$scope.event._id+'/edit', $scope.triggeredCell).then(function(response) {
+      if(response.data.status == 2002){
+        $scope.weeks[$scope.triggeredCell.weeksIndex].days[$scope.triggeredCell.dayIndex].events[$scope.triggeredCell.eventIndex].title = $scope.event.title;
+        $scope.weeks[$scope.triggeredCell.weeksIndex].days[$scope.triggeredCell.dayIndex].events[$scope.triggeredCell.eventIndex].description = $scope.event.description;
+        $scope.event = {title: '', description: ''};
+        jQuery('#editEventModal').modal('hide');
+      }
+    });
+  };
 });

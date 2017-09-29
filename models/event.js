@@ -13,11 +13,21 @@ var EventSchema = mongoose.Schema({
 
 var Event = module.exports = mongoose.model('Event', EventSchema);
 
-//Export as createEvent
+//Fetch all Events
+module.exports.fetchEvents = function(date, callback){
+    Event.find({year: date.year, month: date.month}, callback);
+};
+
+//Create Event
 module.exports.createEvent = function(newEvent, callback){
     newEvent.save(callback);
 };
 
-module.exports.fetchEvents = function(date, callback){
-    Event.find({year: date.year, month: date.month}, callback);
+//Edit Event
+module.exports.editEvent = function(eventData, callback){
+    Event.findById(eventData.id, function (err, event) {
+        event.title = eventData.title;
+        event.description = eventData.description;
+        event.save(callback);
+    });
 };

@@ -1,8 +1,14 @@
-button {
-  cursor: pointer;
-}
 #calendar {
   width: 100%;
+  margin-bottom: 950px !important;
+}
+button{
+  cursor: pointer;
+}
+button:hover{
+  cursor: pointer;
+  background: #2c3e50;
+  color: #fff;
 }
 
 #calendar a {
@@ -47,29 +53,14 @@ button {
   height: 180px;
 }
 
-#calendar .days li:hover {
-  background: #ecf0f1;
-}
-
-#calendar .date {
-  text-align: center;
-  margin-bottom: 5px;
-  padding: 4px;
-  background: #333;
-  color: #fff;
-  width: 30px;
-  border-radius: 100%;
-  float: right;
-}
-
 #calendar .event {
   clear: both;
   display: block;
-  font-size: 13px;
+  font-size: 10px;
   border-radius: none;
-  padding: 4px;
-  margin-top: 35px;
-  margin-bottom: 3px;
+  margin-top: 5px;
+  padding: 1px;
+  padding-bottom: 0 !important;
   line-height: 14px;
   background: #e4f2f2;
   border: 1px solid #b5dbdc;
@@ -77,10 +68,38 @@ button {
   text-decoration: none;
 }
 
+#calendar .event:hover {
+  cursor: pointer;
+  background: #2c3e50;
+  border: 1px solid #2c3e50;
+}
+
+#calendar .event:hover > .event-title{
+  color: #fff;
+}
+
+#calendar .header span:hover {
+  cursor: pointer;
+  color: red !important;
+}
+
+
+#calendar .header {
+  border-bottom: 1px solid #ccc;
+}
+
 #calendar .event-title {
   color: #666;
   margin: 3px 0 7px 0;
   text-decoration: none;
+}
+
+#calendar .event-title i{
+  padding: 4px;
+}
+
+#calendar .event-title i:hover{
+  border: 1px solid #fff;
 }
 
 #calendar .other-month {
@@ -102,9 +121,5 @@ button {
     width: 100%;
     padding: 10px;
     margin-bottom: -1px;
-  }
-
-  #calendar .date {
-    float: none;
   }
 }

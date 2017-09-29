@@ -94,6 +94,9 @@ app.controller('calendar', function ($scope, $rootScope, $http, $location, $rout
         $scope.weeks[response.data.data.weeksIndex].days[response.data.data.dayIndex].events.push(response.data.data);
         $scope.event = {title: '', description: ''};
         jQuery('#createEventModal').modal('hide');
+        $.notify( response.data.message, 'success');
+      }else{
+        $.notify( response.data.message, 'error');
       }
     });
   };
@@ -119,16 +122,24 @@ app.controller('calendar', function ($scope, $rootScope, $http, $location, $rout
         $scope.weeks[$scope.triggeredCell.weeksIndex].days[$scope.triggeredCell.dayIndex].events[$scope.triggeredCell.eventIndex].description = $scope.event.description;
         $scope.event = {title: '', description: ''};
         jQuery('#editEventModal').modal('hide');
+        $.notify( response.data.message, 'success');
+      }else{
+        $.notify( response.data.message, 'error');
       }
     });
   };
 
   // Call for delete event
   $scope.deleteEvent = function(weeksIndex, dayIndex, eventIndex, event_id){
-    $http.delete($rootScope.baseUrl + '/events/'+event_id+'/delete').then(function(response) {
-      if(response.data.status == 2003){
-        $scope.weeks[weeksIndex].days[dayIndex].events.splice(eventIndex, 1);
-      }
-    });
+    if(confirm("Are you sure ?")){
+      $http.delete($rootScope.baseUrl + '/events/'+event_id+'/delete').then(function(response) {
+        if(response.data.status == 2003){
+          $scope.weeks[weeksIndex].days[dayIndex].events.splice(eventIndex, 1);
+          $.notify( response.data.message, 'success');
+        }else{
+          $.notify( response.data.message, 'error');
+        }
+      });
+    }
   };
 });

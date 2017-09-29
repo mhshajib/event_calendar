@@ -36,14 +36,12 @@ app.factory('socket', ['$rootScope', function ($rootScope) {
 }]);
 
 //Route
-app.config(function($routeProvider, $locationProvider) {
+app.config(function($routeProvider) {
     $routeProvider
         .when('/:year?/:month?', {
             templateUrl : 'pages/calendar.html',
             controller  : 'calendar'
         });
-    $locationProvider.html5Mode(true);
-    $locationProvider.hashPrefix('');
 });
 
 

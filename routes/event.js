@@ -2,7 +2,17 @@ var express = require('express');
 var router = express.Router();
 var Event = require('../models/event');
 
-//User Register
+//Fetch Events
+router.get('/', function (req, res) {
+    Event.fetchEvents({year: req.query.year, month: req.query.month},function (err, events) {
+        if(err){
+            res.json({status: 4000, errors: errors});
+        }else{
+            res.json({status: 2000, data: events});
+        }
+    });
+});
+//Create Event
 router.post('/create', function (req, res) {
     var newEvent = new Event({
         year: req.body.year,
@@ -17,7 +27,7 @@ router.post('/create', function (req, res) {
         if(err){
             res.json({status: 4000, errors: errors});
         }else{
-            res.json({status: 2000, message: "Event Saved Successfully", data: event});
+            res.json({status: 2001, message: "Event Saved Successfully", data: event});
         }
     });
 });

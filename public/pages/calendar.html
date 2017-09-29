@@ -34,14 +34,10 @@
             <ul class="days" ng-repeat="(weekIndex, week) in weeks">
               <li class="day" ng-repeat="(dayIndex, day) in week.days" ng-class="(day.month-1 != commonData.filteredMonth) ? 'other-month' : '' ">
                 <div class="date">{{ day.date }}</div>
-                  <button type="button" data-toggle="modal" data-target=".eventModal" ng-show="day.month-1 == commonData.filteredMonth" name="button" class="btn btn-default btn-sm" title="Add Event" ng-click="addEvent(day.year, day.month, day.date, weekIndex, dayIndex)"><i class="ion ion-plus-round"></i></button>
+                  <button type="button" data-toggle="modal" data-target="#eventModal" ng-show="day.month-1 == commonData.filteredMonth" name="button" class="btn btn-default btn-sm" title="Add Event" ng-click="addEvent(day.year, day.month, day.date, weekIndex, dayIndex)"><i class="ion ion-plus-round"></i></button>
                   <div class="event" ng-repeat="event in day.events">
                       <div class="event-title">
                           {{ event.title }}
-                          <div class="btn-group" role="group">
-                            <button type="button" class="btn btn-sm btn-default">E</button>
-                            <button type="button" class="btn btn-sm btn-default">D</button>
-                          </div>
                       </div>
                   </div>
               </td>
@@ -50,7 +46,7 @@
     </div><!-- /. wrap -->
   </div>
   <!-- Modal -->
-  <div class="modal fade eventModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal fade" id="eventModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">

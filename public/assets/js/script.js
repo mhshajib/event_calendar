@@ -52,6 +52,13 @@ app.controller('calendar', function ($scope, $rootScope, $http, $location, $rout
     $rootScope.currentMonth = $routeParams.month;
   }
   $scope.generateCalendar($rootScope.currentYear, $rootScope.currentMonth);
+  $http.get($rootScope.baseUrl + '/events', {params: {year: $rootScope.currentYear, month: (parseInt($rootScope.currentMonth)+1)}}).then(function(response) {
+    if(response.data.status == 2000){
+      for(var i=0; i<response.data.data.length; i++){
+        $scope.weeks[response.data.data[i].weeksIndex].days[response.data.data[i].dayIndex].events.push(response.data.data[i]);
+      }
+    }
+  });
 
   // Call for next month's calendar
   $scope.nextMonth = function(){
@@ -82,7 +89,11 @@ app.controller('calendar', function ($scope, $rootScope, $http, $location, $rout
     $scope.triggeredCell.description = $scope.event.description;
 
     $http.post($rootScope.baseUrl + '/events/create', $scope.triggeredCell).then(function(response) {
-      $scope.weeks[response.data.data.weeksIndex].days[response.data.data.dayIndex].events.push(response.data.data);
+      if(response.data.status == 2001){
+        $scope.weeks[response.data.data.weeksIndex].days[response.data.data.dayIndex].events.push(response.data.data);
+        $scope.event = {title: '', description: ''};
+        jQuery('#eventModal').modal('hide');
+      }
     });
   }
 });

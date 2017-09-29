@@ -17,3 +17,7 @@ var Event = module.exports = mongoose.model('Event', EventSchema);
 module.exports.createEvent = function(newEvent, callback){
     newEvent.save(callback);
 };
+
+module.exports.fetchEvents = function(date, callback){
+    Event.find({year: date.year, month: date.month}, callback);
+};

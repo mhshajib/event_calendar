@@ -24,6 +24,7 @@ var io = require('socket.io').listen(server);
 app.get('/', function(req, res){
 	res.sendFile(__dirname + '/index.html');
 });
+
 // Calling event routes when request first param is event
 app.get('/events', function (req, res) {
     EventModel.fetchEvents({year: req.query.year, month: req.query.month},function (err, events) {
@@ -49,8 +50,8 @@ app.post('/events/create', function (req, res) {
         if(err){
             res.json({status: 4000, message: "Failed to create event"});
         }else{
-            io.sockets.emit('create_event', event);
-            res.json({status: 2001, message: "Event created successfully", data: event});
+            io.sockets.emit('create_event', req.body);
+            res.json({status: 2001, message: "Event created successfully", data: req.body});
         }
     });
 });
@@ -61,7 +62,8 @@ app.put('/events/:id/edit', function (req, res) {
         if(err){
             res.json({status: 4000, message: "Failed to update event"});
         }else{
-            res.json({status: 2002, message: "Event updated successfully", data: event});
+            io.sockets.emit('edit_event', req.body);
+            res.json({status: 2002, message: "Event updated successfully", data: req.body});
         }
     });
 });
@@ -72,6 +74,7 @@ app.delete('/events/:id/delete', function (req, res) {
         if(err){
             res.json({status: 4000, message: "Failed to delete event"});
         }else{
+            io.sockets.emit('delete_event', req.query);
             res.json({status: 2003, message: "Event deleted successfully"});
         }
     });

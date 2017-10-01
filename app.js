@@ -94,3 +94,4 @@ mongoose.connection.on('error', function(err) {
         console.log('Server started at : http://localhost:' + app.get('port'));
     });
 });
+module.exports = app; // for testing

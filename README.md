@@ -59,6 +59,6 @@ Realtime custom event calendar with moment.js, socket-io, nodejs, express-js, mo
     ![Event Calendar screenshot](https://raw.githubusercontent.com/mhshajib/event_calendar/master/images/edit.png)
 * Clicking on the trash icon it'll show you a confirm prompt and if you click yes then it'll remove the event from this day.
     ![Event Calendar screenshot](https://raw.githubusercontent.com/mhshajib/event_calendar/master/images/delete.png)
-#### This Calendar is a realtime calendar so you can open it in multiple browser and if any you make any operation(create, edit, delete) at any date then it'll reflect immediately on all other browsers.
+#### This Calendar is a realtime calendar so you can open it in multiple browser and if you make any operation(create, edit, delete) at any date then it'll reflect immediately on all other browsers.
 ### **License**
 The **event_calendar** is a open-source software licensed under the MIT License.

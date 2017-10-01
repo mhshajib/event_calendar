@@ -1,7 +1,7 @@
 {
   "name": "event_calendar",
   "version": "1.0.0",
-  "description": "Demo Event Calendar For Jeeon",
+  "description": "Event Calendar For Jeeon Task Assignment",
   "main": "app.js",
   "scripts": {
     "test": "mocha",
@@ -11,11 +11,13 @@
   "license": "ISC",
   "dependencies": {
     "body-parser": "^1.18.2",
-    "chai": "^4.1.2",
-    "chai-http": "^3.0.0",
     "express": "^4.15.5",
-    "mocha": "^3.5.3",
     "mongoose": "^4.11.13",
     "socket.io": "^2.0.3"
+  },
+  "devDependencies": {
+    "mocha": "^3.5.3",
+    "chai": "^4.1.2",
+    "chai-http": "^3.0.0"
   }
 }

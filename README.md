@@ -1,6 +1,8 @@
 # Event Calendar
 Realtime custom event calendar with moment.js, socket-io, nodejs, express-js, mongodb and angularjs.
 
+##### DEMO : http://34.224.106.211:3300
+
 ### Requirements
 * nodejs
 * npm
@@ -19,6 +21,10 @@ Realtime custom event calendar with moment.js, socket-io, nodejs, express-js, mo
     ```bash
     $ npm install
     ```
+    If it's showing error try it as superuser
+    ```bash
+    $ sudo npm install
+    ```
     It'll install all your required dependencies listed on package.json
 
 ### Testing and Run
@@ -31,7 +37,7 @@ Realtime custom event calendar with moment.js, socket-io, nodejs, express-js, mo
     $ npm test
     ```
     If everything goes well it'll show you something like this.
-    ![Event Calendar screenshot](https://raw.githubusercontent.com/mhshajib/event_calendar/master/images/test.png)
+    ![Event Calendar screenshot](https://raw.githubusercontent.com/mhshajib/event_calendar/master/images/unit_test.png)
 * Run application
     ``` bash
     $ npm start

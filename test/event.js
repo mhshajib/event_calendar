@@ -32,7 +32,7 @@ describe('/GET events', function() {
 });
 
 //Posting a new event for test
-describe('/POST event', function() {
+describe('/POST events', function() {
     it('it should create a new event', function(done) {
         chai.request(server)
             .post('/events')
@@ -61,7 +61,7 @@ describe('/POST event', function() {
 });
 
 //Updating an existing event for test
-describe('/PUT event/<id>', function() {
+describe('/PUT events/<id>', function() {
     it('it should update an event', function(done) {
         chai.request(server)
             .get('/events')
@@ -87,7 +87,7 @@ describe('/PUT event/<id>', function() {
 });
 
 //Deleting an event for test
-describe('/DELETE event/<id>', function() {
+describe('/DELETE events/<id>', function() {
     it('it should delete an event', function(done) {
         chai.request(server)
             .get('/events')

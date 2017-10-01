@@ -18,6 +18,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 //Creating http server
 var server = require('http').createServer(app);
+
 //Initializing socket
 var io = require('socket.io').listen(server);
 
@@ -51,6 +52,7 @@ app.post('/events', function (req, res) {
         if(err){
             res.json({status: 4000, message: "Failed to create event"});
         }else{
+            //Broadcasting to all when a new event successfully created
             io.sockets.emit('create_event', event);
             res.json({status: 2001, message: "Event created successfully", data: event});
         }
@@ -63,6 +65,7 @@ app.put('/events/:id', function (req, res) {
         if(err){
             res.json({status: 4000, message: "Failed to update event"});
         }else{
+            //Broadcasting to all when an event get updated
             io.sockets.emit('edit_event', req.body);
             res.json({status: 2002, message: "Event updated successfully", data: req.body});
         }
@@ -75,6 +78,7 @@ app.delete('/events/:id', function (req, res) {
         if(err){
             res.json({status: 4000, message: "Failed to delete event"});
         }else{
+            //Broadcasting to all when an event deleted
             io.sockets.emit('delete_event', req.query);
             res.json({status: 2003, message: "Event deleted successfully"});
         }

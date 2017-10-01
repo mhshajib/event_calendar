@@ -1,13 +1,12 @@
-let mongoose = require("mongoose");
-let Event = require('../models/event');
-
-let chai = require('chai');
-let chaiHttp = require('chai-http');
-let server = require('../app');
-let should = chai.should();
+var Event = require('../models/event');
+var chai = require('chai');
+var chaiHttp = require('chai-http');
+var server = require('../app');
+var should = chai.should();
 
 chai.use(chaiHttp);
 
+//Removing all events before testing
 describe('Events', function() {
     it("this function must remove all data from events", function () {
         Event.remove(function (err, event) {
@@ -16,6 +15,7 @@ describe('Events', function() {
     });
 });
 
+//Calling fetch all events api for test
 describe('/GET events', function() {
     it('it should GET all the events', function(done) {
         chai.request(server)
@@ -31,6 +31,7 @@ describe('/GET events', function() {
     });
 });
 
+//Posting a new event for test
 describe('/POST event', function() {
     it('it should create a new event', function(done) {
         chai.request(server)
@@ -59,6 +60,7 @@ describe('/POST event', function() {
     });
 });
 
+//Updating an existing event for test
 describe('/PUT event/<id>', function() {
     it('it should update an event', function(done) {
         chai.request(server)
@@ -84,6 +86,7 @@ describe('/PUT event/<id>', function() {
     });
 });
 
+//Deleting an event for test
 describe('/DELETE event/<id>', function() {
     it('it should delete an event', function(done) {
         chai.request(server)

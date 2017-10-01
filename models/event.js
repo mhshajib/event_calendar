@@ -13,17 +13,17 @@ var EventSchema = mongoose.Schema({
 
 var Event = module.exports = mongoose.model('Event', EventSchema);
 
-//Fetch all Events
+//Fetching all events
 module.exports.fetchEvents = function(date, callback){
     Event.find({year: date.year, month: date.month}, callback);
 };
 
-//Create Event
+//Creating a new event
 module.exports.createEvent = function(newEvent, callback){
     newEvent.save(callback);
 };
 
-//Edit Event
+//Editing an existing Event
 module.exports.editEvent = function(eventData, callback){
     Event.findById(eventData.id, function (err, event) {
         event.title = eventData.title;
@@ -32,7 +32,7 @@ module.exports.editEvent = function(eventData, callback){
     });
 };
 
-//Delete Event
+//Deleting an existing event
 module.exports.deleteEvent = function(eventId, callback){
     Event.findById(eventId, function (err, event) {
         event.remove(callback);

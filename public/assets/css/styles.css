@@ -114,6 +114,9 @@ button:hover{
   #calendar .weekdays, #calendar .other-month {
     display: none;
   }
+  #calendar {
+    margin-bottom: 10px !important;
+  }
 
   #calendar li {
     height: auto !important;

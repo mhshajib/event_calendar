@@ -83,3 +83,23 @@ describe('/PUT event/<id>', function() {
             });
     });
 });
+
+describe('/DELETE event/<id>', function() {
+    it('it should delete an event', function(done) {
+        chai.request(server)
+            .get('/events')
+            .query({year: 2017, month: 10})
+            .end(function(err, res){
+                chai.request(server)
+                    .delete('/events/'+res.body.data[0]._id)
+                    .end(function(error, response){
+                        response.should.have.status(200);
+                        response.should.be.json;
+                        response.body.should.be.a('object');
+                        response.body.should.have.property('status');
+                        response.body.should.have.property('message');
+                        done();
+                    });
+            });
+    });
+});

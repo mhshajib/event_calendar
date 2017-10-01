@@ -117,7 +117,7 @@ app.controller('calendar', function ($scope, socket, $rootScope, $http, $locatio
     $scope.triggeredCell.title = $scope.event.title;
     $scope.triggeredCell.description = $scope.event.description;
 
-    $http.post($rootScope.baseUrl + '/events/create', $scope.triggeredCell).then(function(response) {
+    $http.post($rootScope.baseUrl + '/events', $scope.triggeredCell).then(function(response) {
       if(response.data.status == 2001){
         $scope.event = {title: '', description: ''};
         jQuery('#createEventModal').modal('hide');
@@ -143,7 +143,7 @@ app.controller('calendar', function ($scope, socket, $rootScope, $http, $locatio
   $scope.updateEvent = function(){
     $scope.triggeredCell.title = $scope.event.title;
     $scope.triggeredCell.description = $scope.event.description;
-    $http.put($rootScope.baseUrl + '/events/'+$scope.event._id+'/edit', $scope.triggeredCell).then(function(response) {
+    $http.put($rootScope.baseUrl + '/events/'+$scope.event._id, $scope.triggeredCell).then(function(response) {
       if(response.data.status == 2002){
         $scope.event = {title: '', description: ''};
         jQuery('#editEventModal').modal('hide');
@@ -157,7 +157,7 @@ app.controller('calendar', function ($scope, socket, $rootScope, $http, $locatio
   // Call for delete event
   $scope.deleteEvent = function(weeksIndex, dayIndex, eventIndex, event_id){
     if(confirm("Are you sure ?")){
-      $http.delete($rootScope.baseUrl + '/events/'+event_id+'/delete', {params: {weeksIndex: weeksIndex, dayIndex: dayIndex, eventIndex: eventIndex}}).then(function(response) {
+      $http.delete($rootScope.baseUrl + '/events/'+event_id, {params: {weeksIndex: weeksIndex, dayIndex: dayIndex, eventIndex: eventIndex}}).then(function(response) {
         if(response.data.status == 2003){
           $.notify(response.data.message, 'success');
           return;

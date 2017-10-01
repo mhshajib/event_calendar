@@ -37,7 +37,7 @@ app.get('/events', function (req, res) {
     });
 });
 //Create Event
-app.post('/events/create', function (req, res) {
+app.post('/events', function (req, res) {
     var newEvent = new EventModel({
         year: req.body.year,
         month: req.body.month,
@@ -58,7 +58,7 @@ app.post('/events/create', function (req, res) {
 });
 
 //Edit Event
-app.put('/events/:id/edit', function (req, res) {
+app.put('/events/:id', function (req, res) {
     EventModel.editEvent({id: req.params.id, title: req.body.title, description: req.body.description}, function (err, event) {
         if(err){
             res.json({status: 4000, message: "Failed to update event"});
@@ -70,7 +70,7 @@ app.put('/events/:id/edit', function (req, res) {
 });
 
 //Delete Event
-app.delete('/events/:id/delete', function (req, res) {
+app.delete('/events/:id', function (req, res) {
     EventModel.deleteEvent(req.params.id, function (err, event) {
         if(err){
             res.json({status: 4000, message: "Failed to delete event"});

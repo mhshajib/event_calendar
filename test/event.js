@@ -33,7 +33,7 @@ describe('/GET events', function() {
 describe('/POST event', function() {
     it('it should create a new event', function(done) {
         chai.request(server)
-            .post('/events/create')
+            .post('/events')
             .send({'year': 2017, 'month': 10, 'date': 4, "weeksIndex": 0, "dayIndex": 3, "title": "Test Event", "description": "Test Event Description" })
             .end(function(err, res){
                 res.should.have.status(200);

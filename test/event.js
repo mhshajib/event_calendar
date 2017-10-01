@@ -20,6 +20,7 @@ describe('/GET events', function() {
     it('it should GET all the events', function(done) {
         chai.request(server)
             .get('/events')
+            .query({year: 2017, month: 10})
             .end(function(err, res){
                 res.should.have.status(200);
                 res.body.should.be.a('object');
@@ -54,6 +55,31 @@ describe('/POST event', function() {
                 res.body.data.title.should.equal('Test Event');
                 res.body.data.description.should.equal('Test Event Description');
                 done();
+            });
+    });
+});
+
+describe('/PUT event/<id>', function() {
+    it('it should update an event', function(done) {
+        chai.request(server)
+            .get('/events')
+            .query({year: 2017, month: 10})
+            .end(function(err, res){
+                chai.request(server)
+                    .put('/events/'+res.body.data[0]._id)
+                    .send({'title': 'Updated Title', 'description': 'Updated Description'})
+                    .end(function(error, response){
+                        response.should.have.status(200);
+                        response.should.be.json;
+                        response.body.should.be.a('object');
+                        response.body.should.have.property('status');
+                        response.body.should.have.property('message');
+                        response.body.should.have.property('data');
+                        response.body.data.should.be.a('object');
+                        response.body.data.should.have.property('title');
+                        response.body.data.should.have.property('description');
+                        done();
+                    });
             });
     });
 });

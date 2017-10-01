@@ -49,10 +49,10 @@ Realtime custom event calendar with moment.js, socket-io, nodejs, express-js, mo
     ![Event Calendar screenshot](https://raw.githubusercontent.com/mhshajib/event_calendar/master/images/calendar.png)
 * At top right corner there are next and previous buttons, which are used to navigate the month.
 * At top right corder of each date there is a plus button, which is used to create an event on that specific date.
-    ![Event Calendar screenshot](https://raw.githubusercontent.com/mhshajib/event_calendar/master/images/create.png)
 * Now enter the " Title " and " Description " of your event and save it.
+    ![Event Calendar screenshot](https://raw.githubusercontent.com/mhshajib/event_calendar/master/images/create.png)    
+* After saving ther are three buttons on every event, which are view, edit and delete.
     ![Event Calendar screenshot](https://raw.githubusercontent.com/mhshajib/event_calendar/master/images/created.png)
-* After saving here are three buttons on every event, which are view, edit and delete.
 * Clicking on the eye icon it'll show you the event in view mode.
     ![Event Calendar screenshot](https://raw.githubusercontent.com/mhshajib/event_calendar/master/images/view.png)
 * Clicking on the pencil icon it'll show you the event in edit mode, so here you can change the title and description and update it.

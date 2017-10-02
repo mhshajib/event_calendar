@@ -3,6 +3,8 @@ Realtime custom event calendar with moment.js, socket-io, nodejs, express-js, mo
 
 ##### DEMO : http://34.224.106.211:3300
 
+![Event Calendar screenshot](https://raw.githubusercontent.com/mhshajib/event_calendar/master/images/logo.png)
+
 ### Requirements
 * nodejs
 * npm
